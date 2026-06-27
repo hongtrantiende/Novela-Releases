@@ -170,6 +170,14 @@ header::before {
     border-radius: 50px;
 }
 
+.logo-img {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 0 10px rgba(139, 92, 246, 0.3);
+}
+
 .logo-icon {
     font-size: 1.4rem;
     background: linear-gradient(135deg, #a78bfa, #60a5fa);
