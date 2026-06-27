@@ -970,3 +970,203 @@ footer {
         font-size: 0.85rem;
     }
 }
+
+/* Card Checkbox styling */
+.card-select-label {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    margin-right: 0.25rem;
+    margin-top: 2px;
+}
+
+.card-checkbox {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.checkbox-custom {
+    height: 18px;
+    width: 18px;
+    background-color: #ffffff;
+    border: 2px solid rgba(15, 23, 42, 0.18);
+    border-radius: 5px;
+    display: inline-block;
+    position: relative;
+    transition: var(--smooth);
+}
+
+.card-checkbox:checked ~ .checkbox-custom {
+    background-color: var(--blue);
+    border-color: transparent;
+    box-shadow: 0 0 8px rgba(37, 99, 235, 0.35);
+}
+
+.checkbox-custom:after {
+    content: "";
+    position: absolute;
+    display: none;
+    left: 5px;
+    top: 1px;
+    width: 4px;
+    height: 8px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.card-checkbox:checked ~ .checkbox-custom:after {
+    display: block;
+}
+
+/* Selection Controls Row above Grid */
+.selection-controls-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.25rem;
+    padding: 0 0.5rem;
+    color: var(--text-dim);
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.select-all-actions {
+    display: flex;
+    gap: 1.25rem;
+}
+
+.text-btn {
+    background: none;
+    border: none;
+    color: var(--blue);
+    font-family: var(--font-outfit);
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    transition: var(--smooth);
+}
+
+.text-btn:hover {
+    color: #1d4ed8;
+    text-decoration: underline;
+}
+
+/* Floating Bottom Selection Bar */
+.selection-bar {
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%) translateY(120px);
+    background: rgba(255, 255, 255, 0.92);
+    border: 1px solid rgba(37, 99, 235, 0.15);
+    backdrop-filter: blur(25px);
+    border-radius: 20px;
+    padding: 0.85rem 1.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    z-index: 9999;
+    box-shadow: 0 15px 45px rgba(37, 99, 235, 0.12);
+    width: calc(100% - 3rem);
+    max-width: 680px;
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.selection-bar.show {
+    transform: translateX(-50%) translateY(0);
+}
+
+.selection-info {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    color: var(--text-main);
+    font-weight: 700;
+    font-size: 1.05rem;
+}
+
+.selection-count-badge {
+    background: var(--blue);
+    color: #fff;
+    font-family: var(--font-space);
+    font-size: 0.95rem;
+    font-weight: 800;
+    padding: 0.25rem 0.75rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(37, 99, 235, 0.25);
+}
+
+.selection-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+}
+
+.btn-selection-import {
+    background: linear-gradient(135deg, var(--blue), #3b82f6);
+    color: #fff;
+    padding: 0.75rem 1.5rem;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+}
+
+.btn-selection-import:hover {
+    box-shadow: 0 6px 18px rgba(37, 99, 235, 0.35);
+    transform: translateY(-1px);
+}
+
+.btn-selection-copy {
+    background: rgba(15, 23, 42, 0.04);
+    border: 1px solid rgba(15, 23, 42, 0.08);
+    color: var(--text-main);
+    padding: 0.75rem 1.25rem;
+}
+
+.btn-selection-copy:hover {
+    background: rgba(15, 23, 42, 0.08);
+    color: var(--blue);
+    transform: translateY(-1px);
+}
+
+.btn-selection-clear {
+    background: none;
+    border: none;
+    color: var(--text-dim);
+    cursor: pointer;
+    font-weight: 700;
+    font-family: var(--font-outfit);
+    font-size: 0.92rem;
+    transition: var(--smooth);
+    margin-right: 0.5rem;
+}
+
+.btn-selection-clear:hover {
+    color: #ef4444;
+    text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+    .selection-bar {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1.25rem;
+        bottom: 1rem;
+    }
+    
+    .selection-actions {
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .btn-selection-import {
+        flex-grow: 1;
+    }
+}

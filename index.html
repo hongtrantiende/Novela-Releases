@@ -63,7 +63,7 @@
                         <i class="fa-solid fa-rotate"></i>
                     </div>
                     <div class="stat-info">
-                        <span class="stat-value" style="background: linear-gradient(90deg, #f59e0b, #d97706); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">LIVE</span>
+                        <span class="stat-value" style="color: var(--blue);">LIVE</span>
                         <span class="stat-label">Cập Nhật Tự Động</span>
                     </div>
                 </div>
@@ -84,9 +84,7 @@
             <div class="filter-wrapper">
                 <span class="filter-header-label"><i class="fa-solid fa-sliders"></i> Phân loại nhanh:</span>
                 <div class="tags-flex" id="tags-filter">
-                    <button class="tag-btn active" data-tag="all">
-                        <i class="fa-solid fa-layer-group"></i> Tất cả
-                    </button>
+                    <!-- Loaded dynamically -->
                 </div>
             </div>
         </section>
@@ -113,6 +111,15 @@
                 <button onclick="window.location.reload()" class="retry-btn">
                     <i class="fa-solid fa-arrows-rotate"></i> Tải Lại Trang
                 </button>
+            </div>
+
+            <!-- Selection Controls Row -->
+            <div class="selection-controls-row">
+                <span class="results-count" id="results-count">Đang hiển thị...</span>
+                <div class="select-all-actions">
+                    <button id="select-all-btn" class="text-btn"><i class="fa-solid fa-square-check"></i> Chọn các nguồn đang hiện</button>
+                    <button id="deselect-all-btn" class="text-btn"><i class="fa-solid fa-square-minus"></i> Bỏ chọn tất cả</button>
+                </div>
             </div>
 
             <!-- Grid -->
@@ -142,6 +149,23 @@
                 </div>
             </div>
         </footer>
+    </div>
+
+    <!-- Selection Bar -->
+    <div id="selection-bar" class="selection-bar">
+        <div class="selection-info">
+            <span class="selection-count-badge" id="selection-count">0</span>
+            <span>nguồn đã chọn</span>
+        </div>
+        <div class="selection-actions">
+            <button id="selection-clear-btn" class="btn-selection-clear">Bỏ chọn tất cả</button>
+            <button id="selection-copy-btn" class="btn btn-selection-copy" title="Sao chép liên kết gộp">
+                <i class="fa-solid fa-copy"></i> Sao chép liên kết
+            </button>
+            <a id="selection-import-btn" href="#" class="btn btn-selection-import">
+                <i class="fa-solid fa-circle-down"></i> Nhập nguồn đã chọn
+            </a>
+        </div>
     </div>
 
     <!-- Toast Notification -->

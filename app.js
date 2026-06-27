@@ -16,10 +16,23 @@ document.addEventListener('DOMContentLoaded', () => {
     const toast = document.getElementById('toast');
     const toastText = document.getElementById('toast-text');
 
+    // Selection Bar elements
+    const selectionBar = document.getElementById('selection-bar');
+    const selectionCount = document.getElementById('selection-count');
+    const selectionImportBtn = document.getElementById('selection-import-btn');
+    const selectionCopyBtn = document.getElementById('selection-copy-btn');
+    const selectionClearBtn = document.getElementById('selection-clear-btn');
+    const selectAllBtn = document.getElementById('select-all-btn');
+    const deselectAllBtn = document.getElementById('deselect-all-btn');
+    const resultsCount = document.getElementById('results-count');
+
     let allSources = [];
     let filteredSources = [];
     let currentTag = 'all';
     let searchQuery = '';
+
+    // Selection State
+    let selectedIds = new Set();
 
     // Pagination / Lazy Loading
     let currentPage = 1;
@@ -177,9 +190,14 @@ document.addEventListener('DOMContentLoaded', () => {
         if (filteredSources.length === 0) {
             noResults.style.display = 'block';
             sourcesGrid.style.display = 'none';
+            if (resultsCount) resultsCount.textContent = 'Tìm thấy 0 nguồn';
         } else {
             noResults.style.display = 'none';
             sourcesGrid.style.display = 'grid';
+            if (resultsCount) {
+                const loadedCount = Math.min(currentPage * limitPerPage, filteredSources.length);
+                resultsCount.textContent = `Đang hiển thị ${loadedCount} / ${filteredSources.length} nguồn`;
+            }
 
             pageItems.forEach(item => {
                 const card = createCard(item);
@@ -206,11 +224,18 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Correct JSON export URL from yckceo
         const jsonExportUrl = `https://www.yckceo.com/yuedu/shuyuan/json/id/${item.id}.json`;
+        const isChecked = selectedIds.has(item.id) ? 'checked' : '';
 
         div.innerHTML = `
             <div>
                 <div class="card-header">
-                    <span class="source-title">${escapeHTML(item.name)}</span>
+                    <div style="display: flex; align-items: flex-start; gap: 0.65rem;">
+                        <label class="card-select-label">
+                            <input type="checkbox" class="card-checkbox" data-id="${item.id}" ${isChecked}>
+                            <span class="checkbox-custom"></span>
+                        </label>
+                        <span class="source-title">${escapeHTML(item.name)}</span>
+                    </div>
                     <div class="source-badges">${badgeHTML}</div>
                 </div>
                 <div class="card-body">
@@ -242,7 +267,44 @@ document.addEventListener('DOMContentLoaded', () => {
             copyToClipboard(url);
         });
 
+        // Register checkbox select state
+        const checkbox = div.querySelector('.card-checkbox');
+        checkbox.addEventListener('change', (e) => {
+            if (e.target.checked) {
+                selectedIds.add(item.id);
+            } else {
+                selectedIds.delete(item.id);
+            }
+            updateSelectionBar();
+        });
+
+        // Toggle checkbox on card body clicks (excluding buttons)
+        div.addEventListener('click', (e) => {
+            if (e.target.closest('.btn') || e.target.closest('.card-select-label') || e.target.closest('.btn-copy')) {
+                return;
+            }
+            checkbox.checked = !checkbox.checked;
+            checkbox.dispatchEvent(new Event('change'));
+        });
+
         return div;
+    }
+
+    function updateSelectionBar() {
+        const count = selectedIds.size;
+        if (count > 0) {
+            selectionCount.textContent = count;
+            selectionBar.classList.add('show');
+            
+            // Build the yckceo import link
+            const idArray = Array.from(selectedIds);
+            const combinedUrl = `https://www.yckceo.com/yuedu/shuyuan/json/id/${idArray.join(',')}.json`;
+            
+            selectionImportBtn.href = `legado://import/bookSource?src=${encodeURIComponent(combinedUrl)}`;
+            selectionCopyBtn.dataset.url = combinedUrl;
+        } else {
+            selectionBar.classList.remove('show');
+        }
     }
 
     function escapeHTML(str) {
@@ -321,7 +383,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Infinite Scroll
         window.addEventListener('scroll', () => {
-            // Trigger load more when user is 400px from the bottom
             if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 400) {
                 if (currentPage * limitPerPage < filteredSources.length) {
                     currentPage++;
@@ -329,5 +390,54 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
         });
+
+        // Select All Visible Sources
+        if (selectAllBtn) {
+            selectAllBtn.addEventListener('click', () => {
+                const start = (currentPage - 1) * limitPerPage;
+                const end = start + limitPerPage;
+                const pageItems = filteredSources.slice(start, end);
+                
+                pageItems.forEach(item => {
+                    selectedIds.add(item.id);
+                });
+                
+                // Sync checkbox state in current view
+                document.querySelectorAll('.card-checkbox').forEach(cb => {
+                    const id = cb.dataset.id;
+                    if (selectedIds.has(id)) {
+                        cb.checked = true;
+                    }
+                });
+                
+                updateSelectionBar();
+            });
+        }
+
+        // Deselect All Sources
+        if (deselectAllBtn) {
+            deselectAllBtn.addEventListener('click', () => {
+                selectedIds.clear();
+                document.querySelectorAll('.card-checkbox').forEach(cb => cb.checked = false);
+                updateSelectionBar();
+            });
+        }
+
+        // Clear Selection from selection bar
+        if (selectionClearBtn) {
+            selectionClearBtn.addEventListener('click', () => {
+                selectedIds.clear();
+                document.querySelectorAll('.card-checkbox').forEach(cb => cb.checked = false);
+                updateSelectionBar();
+            });
+        }
+
+        // Copy Selection URL
+        if (selectionCopyBtn) {
+            selectionCopyBtn.addEventListener('click', () => {
+                const url = selectionCopyBtn.dataset.url;
+                copyToClipboard(url);
+            });
+        }
     }
 });
