@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kho Nguồn Truyện Tiện Ích - Novela</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Premium Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="glass-bg"></div>
+    <div class="glow-dots">
+        <div class="dot dot-1"></div>
+        <div class="dot dot-2"></div>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <div class="logo">
+                <i class="fa-solid fa-book-open-reader logo-icon"></i>
+                <span class="logo-text">NOVELA</span>
+                <span class="badge">VIETNAM</span>
+            </div>
+            <h1>Kho Nguồn Sách & Tiện Ích</h1>
+            <p class="subtitle">Đồng bộ trực tiếp danh sách nguồn truyện Legado chất lượng cao cho ứng dụng Novela của bạn</p>
+            
+            <!-- Quick Stats -->
+            <div class="stats-bar">
+                <div class="stat-item">
+                    <span class="stat-value" id="total-sources-val">0</span>
+                    <span class="stat-label">Tổng nguồn sách</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value" id="total-downloads-val">0</span>
+                    <span class="stat-label">Lượt tải về</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value"><i class="fa-solid fa-cloud-arrow-down sync-icon"></i></span>
+                    <span class="stat-label">Tự động cập nhật</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Controls Section -->
+        <section class="controls">
+            <!-- Search bar -->
+            <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                <input type="text" id="search-input" placeholder="Tìm kiếm nguồn theo tên, tác giả hoặc địa chỉ URL...">
+                <button id="clear-search" class="clear-btn" style="display: none;">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Filter Tags -->
+            <div class="filter-group">
+                <span class="filter-title"><i class="fa-solid fa-tags"></i> Phân loại:</span>
+                <div class="tags-container" id="tags-filter">
+                    <button class="tag-btn active" data-tag="all">Tất cả</button>
+                    <!-- Tags will be dynamically generated -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Sources Grid -->
+        <main class="grid-section">
+            <div class="loader-container" id="loader">
+                <div class="spinner"></div>
+                <p>Đang đồng bộ danh sách nguồn từ máy chủ...</p>
+            </div>
+            
+            <div class="error-container" id="error-box" style="display: none;">
+                <i class="fa-solid fa-triangle-exclamation error-icon"></i>
+                <h3>Đồng bộ thất bại</h3>
+                <p id="error-message">Không thể kết nối đến kho dữ liệu nguồn truyện.</p>
+                <button onclick="window.location.reload()" class="retry-btn">Thử lại</button>
+            </div>
+
+            <div class="sources-grid" id="sources-grid">
+                <!-- Cards will be dynamically generated -->
+            </div>
+            
+            <div class="no-results" id="no-results" style="display: none;">
+                <i class="fa-solid fa-inbox empty-icon"></i>
+                <p>Không tìm thấy nguồn nào phù hợp với tìm kiếm của bạn.</p>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer>
+            <p>&copy; 2026 Novela Vietnam. Tất cả dữ liệu nguồn được cập nhật từ yckceo.</p>
+            <div class="footer-links">
+                <a href="https://github.com/hongtrantiende/Novela-Releases" target="_blank"><i class="fa-brands fa-github"></i> Novela Releases</a>
+                <a href="https://www.yckceo.com/yuedu/shuyuan/index.html" target="_blank"><i class="fa-solid fa-globe"></i> Nguồn tham khảo</a>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Floating toast for copy notifications -->
+    <div id="toast" class="toast">
+        <i class="fa-solid fa-circle-check toast-icon"></i>
+        <span id="toast-text">Đã sao chép liên kết nguồn!</span>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
