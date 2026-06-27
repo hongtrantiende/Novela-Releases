@@ -971,56 +971,54 @@ footer {
     }
 }
 
-/* Card Checkbox styling */
-.card-select-label {
-    position: relative;
-    display: inline-flex;
+/* Card Selection Styling (Like App Extension View) */
+.card-select-badge {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: rgba(15, 23, 42, 0.05);
+    color: var(--text-dim);
+    display: flex;
     align-items: center;
-    cursor: pointer;
-    margin-right: 0.25rem;
-    margin-top: 2px;
-}
-
-.card-checkbox {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-    height: 0;
-    width: 0;
-}
-
-.checkbox-custom {
-    height: 18px;
-    width: 18px;
-    background-color: #ffffff;
-    border: 2px solid rgba(15, 23, 42, 0.18);
-    border-radius: 5px;
-    display: inline-block;
-    position: relative;
+    justify-content: center;
+    font-size: 0.72rem;
+    border: 1px solid rgba(15, 23, 42, 0.08);
     transition: var(--smooth);
+    cursor: pointer;
+    flex-shrink: 0;
 }
 
-.card-checkbox:checked ~ .checkbox-custom {
-    background-color: var(--blue);
+.source-card.selected .card-select-badge {
+    background: var(--blue);
+    color: #ffffff;
     border-color: transparent;
-    box-shadow: 0 0 8px rgba(37, 99, 235, 0.35);
+    box-shadow: 0 0 10px rgba(37, 99, 235, 0.35);
 }
 
-.checkbox-custom:after {
-    content: "";
-    position: absolute;
+.source-card .select-icon-check {
     display: none;
-    left: 5px;
-    top: 1px;
-    width: 4px;
-    height: 8px;
-    border: solid white;
-    border-width: 0 2px 2px 0;
-    transform: rotate(45deg);
 }
 
-.card-checkbox:checked ~ .checkbox-custom:after {
+.source-card.selected .select-icon-plus {
+    display: none;
+}
+
+.source-card.selected .select-icon-check {
     display: block;
+}
+
+.source-card.selected {
+    border-color: var(--blue);
+    box-shadow: 0 0 18px rgba(37, 99, 235, 0.12);
+    background: #ffffff;
+}
+
+/* Title and badges section */
+.title-section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    align-items: flex-start;
 }
 
 /* Selection Controls Row above Grid */
@@ -1059,26 +1057,25 @@ footer {
     text-decoration: underline;
 }
 
-/* Floating Bottom Selection Bar */
+/* Floating Bottom Selection Bar (Compact dark pill styling like app) */
 .selection-bar {
     position: fixed;
-    bottom: 2rem;
+    bottom: 2.5rem;
     left: 50%;
     transform: translateX(-50%) translateY(120px);
-    background: rgba(255, 255, 255, 0.92);
-    border: 1px solid rgba(37, 99, 235, 0.15);
-    backdrop-filter: blur(25px);
-    border-radius: 20px;
-    padding: 0.85rem 1.75rem;
+    background: rgba(15, 23, 42, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(20px);
+    border-radius: 50px;
+    padding: 0.5rem 0.6rem 0.5rem 1.25rem;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 2rem;
+    gap: 1.25rem;
     z-index: 9999;
-    box-shadow: 0 15px 45px rgba(37, 99, 235, 0.12);
-    width: calc(100% - 3rem);
-    max-width: 680px;
-    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    width: auto;
+    max-width: 90%;
+    transition: transform 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.15);
 }
 
 .selection-bar.show {
@@ -1088,85 +1085,90 @@ footer {
 .selection-info {
     display: flex;
     align-items: center;
-    gap: 0.85rem;
-    color: var(--text-main);
+    gap: 0.5rem;
+    color: #ffffff;
     font-weight: 700;
-    font-size: 1.05rem;
+    font-size: 0.92rem;
+    white-space: nowrap;
 }
 
-.selection-count-badge {
-    background: var(--blue);
-    color: #fff;
-    font-family: var(--font-space);
-    font-size: 0.95rem;
-    font-weight: 800;
-    padding: 0.25rem 0.75rem;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(37, 99, 235, 0.25);
+.selection-info i {
+    color: var(--blue);
+    font-size: 1rem;
 }
 
 .selection-actions {
     display: flex;
     align-items: center;
-    gap: 0.85rem;
-}
-
-.btn-selection-import {
-    background: linear-gradient(135deg, var(--blue), #3b82f6);
-    color: #fff;
-    padding: 0.75rem 1.5rem;
-    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
-}
-
-.btn-selection-import:hover {
-    box-shadow: 0 6px 18px rgba(37, 99, 235, 0.35);
-    transform: translateY(-1px);
-}
-
-.btn-selection-copy {
-    background: rgba(15, 23, 42, 0.04);
-    border: 1px solid rgba(15, 23, 42, 0.08);
-    color: var(--text-main);
-    padding: 0.75rem 1.25rem;
-}
-
-.btn-selection-copy:hover {
-    background: rgba(15, 23, 42, 0.08);
-    color: var(--blue);
-    transform: translateY(-1px);
+    gap: 0.6rem;
 }
 
 .btn-selection-clear {
     background: none;
     border: none;
-    color: var(--text-dim);
+    color: rgba(255, 255, 255, 0.6);
     cursor: pointer;
     font-weight: 700;
     font-family: var(--font-outfit);
-    font-size: 0.92rem;
+    font-size: 0.88rem;
     transition: var(--smooth);
-    margin-right: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: 50px;
+    white-space: nowrap;
 }
 
 .btn-selection-clear:hover {
     color: #ef4444;
-    text-decoration: underline;
+    background: rgba(239, 68, 68, 0.1);
+}
+
+.btn-selection-copy {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: var(--smooth);
+}
+
+.btn-selection-copy:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.25);
+    color: var(--blue);
+}
+
+.btn-selection-import {
+    background: var(--blue);
+    color: #ffffff;
+    padding: 0.55rem 1.25rem;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 0.88rem;
+    box-shadow: 0 4px 10px rgba(37, 99, 235, 0.2);
+    white-space: nowrap;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    transition: var(--smooth);
+}
+
+.btn-selection-import:hover {
+    background: #3b82f6;
+    box-shadow: 0 6px 15px rgba(37, 99, 235, 0.35);
 }
 
 @media (max-width: 600px) {
     .selection-bar {
-        flex-direction: column;
-        gap: 1rem;
-        padding: 1.25rem;
-        bottom: 1rem;
-    }
-    
-    .selection-actions {
-        width: 100%;
-        justify-content: space-between;
-    }
-    
-    .btn-selection-import {
-        flex-grow: 1;
+        flex-direction: row;
+        gap: 0.75rem;
+        padding: 0.4rem 0.5rem 0.4rem 1rem;
+        bottom: 1.5rem;
     }
 }
