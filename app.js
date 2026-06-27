@@ -1,6 +1,6 @@
 // Application logic for Kho Nguồn Truyện - Novela
 document.addEventListener('DOMContentLoaded', () => {
-    const JSON_URL = 'https://raw.githubusercontent.com/hongtrantiende/Extransion-TTC/main/yckceo_sources.json';
+    const JSON_URL = 'yckceo_sources.json';
     
     // UI elements
     const loader = document.getElementById('loader');
