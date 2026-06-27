@@ -1,4 +1,3 @@
-# Novela-Releases
 # 📖 Novela - Trình Đọc Sách & Nội Dung Số Đa Nguồn
 
 Novela là một ứng dụng đọc sách và quản lý nội dung số hiệu năng cao dành cho hệ điều hành Android. Ứng dụng được xây dựng và tối ưu hóa dựa trên lõi đọc mã nguồn mở mạnh mẽ **Legado**, tích hợp phong cách thiết kế giao diện hiện đại Material Design 3, mang lại trải nghiệm đọc sách mượt mà, trực quan và tối ưu nhất cho người dùng.
@@ -24,9 +23,9 @@ Novela là một ứng dụng đọc sách và quản lý nội dung số hiệu
 * Tính năng hẹn giờ tắt, tăng/giảm tốc độ đọc linh hoạt.
 * Tự động tạm dừng phát âm thanh khi có cuộc gọi đến và tiếp tục sau khi cuộc gọi kết thúc.
 
-### 🔄 4. Đồng Bộ Hóa Đám Mây (Cloud Sync & WebDAV)
-* Hỗ trợ đồng bộ hóa tủ sách, dấu trang, lịch sử đọc và cấu hình nguồn sách lên các dịch vụ lưu trữ cá nhân thông qua giao thức **WebDAV**.
-* Sao lưu dữ liệu tự động hoặc thủ công ra bộ nhớ cục bộ để khôi phục bất cứ lúc nào.
+### 💾 4. Sao Lưu & Lưu Trữ Cục Bộ (Local Backup & Storage)
+* Hỗ trợ sao lưu toàn bộ dữ liệu tủ sách, dấu trang, lịch sử đọc và cấu hình nguồn sách thủ công hoặc tự động ra bộ nhớ cục bộ của thiết bị.
+* Dễ dàng xuất và nhập các tệp cấu hình sao lưu dự phòng để khôi phục dữ liệu nhanh chóng bất cứ lúc nào.
 
 ### 🚀 5. Tự Động Cập Nhật Tiện Lợi (In-App Auto Update)
 * Ứng dụng tích hợp trình kiểm tra cập nhật tự động mỗi khi khởi động.
