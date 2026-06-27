@@ -20,7 +20,36 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentTag = 'all';
     let searchQuery = '';
 
-    // Fetch source items from GitHub
+    // Translation helper dicts
+    const tagTranslations = {
+        '搜': 'Tìm kiếm',
+        '发': 'Khám phá',
+        '图': 'Manga',
+        '声': 'Audio'
+    };
+
+    function translateTag(tag) {
+        if (!tag) return '';
+        const clean = tag.trim();
+        return tagTranslations[clean] || clean;
+    }
+
+    function translateTags(tagsStr) {
+        if (!tagsStr) return '';
+        return tagsStr.split(/\s+/).map(t => translateTag(t)).join(' ');
+    }
+
+    function translateTime(timeStr) {
+        if (!timeStr) return '';
+        return timeStr
+            .replace(/刚刚/g, 'Vừa xong')
+            .replace(/小时前/g, ' giờ trước')
+            .replace(/天前/g, ' ngày trước')
+            .replace(/分钟前/g, ' phút trước')
+            .replace(/秒前/g, ' giây trước');
+    }
+
+    // Fetch source items
     fetchSources();
 
     async function fetchSources() {
@@ -81,22 +110,22 @@ document.addEventListener('DOMContentLoaded', () => {
         const tagsSet = new Set();
         allSources.forEach(item => {
             if (item.tags) {
-                item.tags.split(/[,，|]/).forEach(t => {
+                item.tags.split(/\s+/).forEach(t => {
                     const cleanTag = t.trim();
-                    if (cleanTag && cleanTag.length < 15) {
+                    if (cleanTag) {
                         tagsSet.add(cleanTag);
                     }
                 });
             }
         });
 
-        // Add typical Vietnamese content tags if list is too short
-        const tags = Array.from(tagsSet).slice(0, 8); // Limit to top 8 tags
+        const tags = Array.from(tagsSet);
 
         tags.forEach(tag => {
+            const vietnameseName = translateTag(tag);
             const btn = document.createElement('button');
             btn.className = 'tag-btn';
-            btn.innerHTML = `<i class="fa-solid fa-tag"></i> ${escapeHTML(tag)}`;
+            btn.innerHTML = `<i class="fa-solid fa-tag"></i> ${vietnameseName}`;
             btn.dataset.tag = tag;
             tagsFilter.appendChild(btn);
         });
@@ -108,7 +137,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Tag check
             let matchesTag = true;
             if (currentTag !== 'all') {
-                matchesTag = item.tags && item.tags.toLowerCase().includes(currentTag.toLowerCase());
+                matchesTag = item.tags && item.tags.split(/\s+/).includes(currentTag);
             }
             
             // Search query check
@@ -118,8 +147,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 const nameMatch = item.name && item.name.toLowerCase().includes(q);
                 const authorMatch = item.author && item.author.toLowerCase().includes(q);
                 const urlMatch = item.url && item.url.toLowerCase().includes(q);
-                const tagMatch = item.tags && item.tags.toLowerCase().includes(q);
-                matchesSearch = nameMatch || authorMatch || urlMatch || tagMatch;
+                
+                // Also search the translated tags!
+                const translatedTags = translateTags(item.tags).toLowerCase();
+                const tagMatch = translatedTags.includes(q) || (item.tags && item.tags.toLowerCase().includes(q));
+                
+                // Search in update time (both Chinese and translated Vietnamese!)
+                const vietTime = translateTime(item.time).toLowerCase();
+                const rawTime = item.time ? item.time.toLowerCase() : '';
+                const timeMatch = vietTime.includes(q) || rawTime.includes(q);
+                
+                matchesSearch = nameMatch || authorMatch || urlMatch || tagMatch || timeMatch;
             }
             
             return matchesTag && matchesSearch;
@@ -147,14 +185,17 @@ document.addEventListener('DOMContentLoaded', () => {
         div.className = 'source-card';
 
         // Extract badges
-        const tagsList = item.tags ? item.tags.split(/[,，|]/).slice(0, 2) : [];
+        const tagsList = item.tags ? item.tags.split(/\s+/) : [];
         const badgeHTML = tagsList.map((tag, i) => {
-            const badgeClass = i === 0 ? 'blue' : 'purple';
-            return `<span class="badge-tag ${badgeClass}">${tag.trim()}</span>`;
+            const vietTag = translateTag(tag);
+            const badgeClass = vietTag === 'Tìm kiếm' ? 'blue' : (vietTag === 'Khám phá' ? 'purple' : (vietTag === 'Manga' ? 'gold' : 'green'));
+            return `<span class="badge-tag ${badgeClass}">${vietTag}</span>`;
         }).join('') || '<span class="badge-tag gray">Nguồn Sách</span>';
 
         const rawUrl = item.url || '';
-        const host = getDomain(rawUrl);
+        
+        // Correct JSON export URL from yckceo
+        const jsonExportUrl = `https://www.yckceo.com/yuedu/shuyuan/json/id/${item.id}.json`;
 
         div.innerHTML = `
             <div>
@@ -168,13 +209,16 @@ document.addEventListener('DOMContentLoaded', () => {
                         <span class="meta-item"><i class="fa-solid fa-user-pen"></i> Tác giả: <span class="meta-author">${escapeHTML(item.author || 'Ẩn Danh')}</span></span>
                         <span class="meta-item"><i class="fa-solid fa-download"></i> Lượt tải: <span class="meta-dl">${item.downloads || 0}</span></span>
                     </div>
+                    <div class="source-time-row">
+                        <i class="fa-solid fa-clock"></i> Cập nhật: <span class="meta-time-val">${escapeHTML(translateTime(item.time))}</span>
+                    </div>
                 </div>
             </div>
             <div class="card-actions">
-                <a href="legado://import/bookSource?src=${encodeURIComponent(rawUrl)}" class="btn btn-import">
+                <a href="legado://import/bookSource?src=${encodeURIComponent(jsonExportUrl)}" class="btn btn-import">
                     <i class="fa-solid fa-circle-down"></i> Nhập vào ứng dụng
                 </a>
-                <button class="btn btn-copy" data-url="${escapeHTML(rawUrl)}" title="Sao chép địa chỉ nguồn">
+                <button class="btn btn-copy" data-url="${escapeHTML(jsonExportUrl)}" title="Sao chép địa chỉ nguồn">
                     <i class="fa-solid fa-copy"></i>
                 </button>
             </div>

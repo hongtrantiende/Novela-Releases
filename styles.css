@@ -588,6 +588,20 @@ header .subtitle {
     font-weight: 600;
 }
 
+.source-time-row {
+    font-size: 0.82rem;
+    color: var(--text-dim);
+    margin-top: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.meta-time-val {
+    color: var(--gold);
+    font-weight: 600;
+}
+
 /* Card Actions */
 .card-actions {
     display: flex;
