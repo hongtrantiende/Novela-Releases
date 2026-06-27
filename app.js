@@ -106,27 +106,21 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function generateTagFilters() {
-        // Collect tags
-        const tagsSet = new Set();
-        allSources.forEach(item => {
-            if (item.tags) {
-                item.tags.split(/\s+/).forEach(t => {
-                    const cleanTag = t.trim();
-                    if (cleanTag) {
-                        tagsSet.add(cleanTag);
-                    }
-                });
-            }
-        });
+        const categories = [
+            { id: 'all', name: 'Tất cả', class: 'tag-all', icon: 'fa-layer-group' },
+            { id: '搜', name: 'Tìm kiếm', class: 'tag-search', icon: 'fa-magnifying-glass' },
+            { id: '发', name: 'Khám phá', class: 'tag-explore', icon: 'fa-compass' },
+            { id: '图', name: 'Manga', class: 'tag-manga', icon: 'fa-image' },
+            { id: '声', name: 'Audio', class: 'tag-audio', icon: 'fa-volume-high' }
+        ];
 
-        const tags = Array.from(tagsSet);
+        tagsFilter.innerHTML = '';
 
-        tags.forEach(tag => {
-            const vietnameseName = translateTag(tag);
+        categories.forEach(cat => {
             const btn = document.createElement('button');
-            btn.className = 'tag-btn';
-            btn.innerHTML = `<i class="fa-solid fa-tag"></i> ${vietnameseName}`;
-            btn.dataset.tag = tag;
+            btn.className = `tag-btn ${cat.class}${cat.id === 'all' ? ' active' : ''}`;
+            btn.innerHTML = `<i class="fa-solid ${cat.icon}"></i> ${cat.name}`;
+            btn.dataset.tag = cat.id;
             tagsFilter.appendChild(btn);
         });
     }
@@ -184,13 +178,15 @@ document.addEventListener('DOMContentLoaded', () => {
         const div = document.createElement('div');
         div.className = 'source-card';
 
-        // Extract badges
+        // Extract badges (only valid translated tags)
         const tagsList = item.tags ? item.tags.split(/\s+/) : [];
-        const badgeHTML = tagsList.map((tag, i) => {
-            const vietTag = translateTag(tag);
-            const badgeClass = vietTag === 'Tìm kiếm' ? 'blue' : (vietTag === 'Khám phá' ? 'purple' : (vietTag === 'Manga' ? 'gold' : 'green'));
-            return `<span class="badge-tag ${badgeClass}">${vietTag}</span>`;
-        }).join('') || '<span class="badge-tag gray">Nguồn Sách</span>';
+        const badgeHTML = tagsList
+            .filter(t => tagTranslations[t.trim()]) // Filter out weird Chinese/custom tags
+            .map((tag, i) => {
+                const vietTag = translateTag(tag);
+                const badgeClass = vietTag === 'Tìm kiếm' ? 'blue' : (vietTag === 'Khám phá' ? 'purple' : (vietTag === 'Manga' ? 'gold' : 'green'));
+                return `<span class="badge-tag ${badgeClass}">${vietTag}</span>`;
+            }).join('') || '<span class="badge-tag gray">Nguồn Sách</span>';
 
         const rawUrl = item.url || '';
         
