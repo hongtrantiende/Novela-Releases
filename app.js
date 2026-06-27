@@ -208,7 +208,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function createCard(item) {
         const div = document.createElement('div');
-        div.className = 'source-card';
+        const isSelected = selectedIds.has(item.id);
+        div.className = `source-card${isSelected ? ' selected' : ''}`;
 
         // Extract badges (only valid translated tags)
         const tagsList = item.tags ? item.tags.split(/\s+/) : [];
@@ -224,19 +225,18 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Correct JSON export URL from yckceo
         const jsonExportUrl = `https://www.yckceo.com/yuedu/shuyuan/json/id/${item.id}.json`;
-        const isChecked = selectedIds.has(item.id) ? 'checked' : '';
 
         div.innerHTML = `
             <div>
                 <div class="card-header">
-                    <div style="display: flex; align-items: flex-start; gap: 0.65rem;">
-                        <label class="card-select-label">
-                            <input type="checkbox" class="card-checkbox" data-id="${item.id}" ${isChecked}>
-                            <span class="checkbox-custom"></span>
-                        </label>
+                    <div class="title-section">
                         <span class="source-title">${escapeHTML(item.name)}</span>
+                        <div class="source-badges">${badgeHTML}</div>
                     </div>
-                    <div class="source-badges">${badgeHTML}</div>
+                    <div class="card-select-badge">
+                        <i class="fa-solid fa-plus select-icon-plus"></i>
+                        <i class="fa-solid fa-check select-icon-check"></i>
+                    </div>
                 </div>
                 <div class="card-body">
                     <div class="source-url" title="${escapeHTML(rawUrl)}">${escapeHTML(rawUrl)}</div>
@@ -267,24 +267,19 @@ document.addEventListener('DOMContentLoaded', () => {
             copyToClipboard(url);
         });
 
-        // Register checkbox select state
-        const checkbox = div.querySelector('.card-checkbox');
-        checkbox.addEventListener('change', (e) => {
-            if (e.target.checked) {
-                selectedIds.add(item.id);
-            } else {
-                selectedIds.delete(item.id);
-            }
-            updateSelectionBar();
-        });
-
-        // Toggle checkbox on card body clicks (excluding buttons)
+        // Toggle selection on card clicks (excluding buttons)
         div.addEventListener('click', (e) => {
-            if (e.target.closest('.btn') || e.target.closest('.card-select-label') || e.target.closest('.btn-copy')) {
+            if (e.target.closest('.btn') || e.target.closest('.btn-copy')) {
                 return;
             }
-            checkbox.checked = !checkbox.checked;
-            checkbox.dispatchEvent(new Event('change'));
+            if (selectedIds.has(item.id)) {
+                selectedIds.delete(item.id);
+                div.classList.remove('selected');
+            } else {
+                selectedIds.add(item.id);
+                div.classList.add('selected');
+            }
+            updateSelectionBar();
         });
 
         return div;
@@ -296,12 +291,20 @@ document.addEventListener('DOMContentLoaded', () => {
             selectionCount.textContent = count;
             selectionBar.classList.add('show');
             
-            // Build the yckceo import link
+            // Build the sourceUrls array for multiple sources (Legado's native format)
             const idArray = Array.from(selectedIds);
-            const combinedUrl = `https://www.yckceo.com/yuedu/shuyuan/json/id/${idArray.join(',')}.json`;
+            const sourceUrls = idArray.map(id => `https://www.yckceo.com/yuedu/shuyuan/json/id/${id}.json`);
             
-            selectionImportBtn.href = `legado://import/bookSource?src=${encodeURIComponent(combinedUrl)}`;
-            selectionCopyBtn.dataset.url = combinedUrl;
+            const jsonObject = {
+                sourceUrls: sourceUrls
+            };
+            const jsonString = JSON.stringify(jsonObject);
+            
+            // Generate Legado import link passing raw JSON object
+            const deepLink = `legado://import/bookSource?src=${encodeURIComponent(jsonString)}`;
+            
+            selectionImportBtn.href = deepLink;
+            selectionCopyBtn.dataset.url = deepLink;
         } else {
             selectionBar.classList.remove('show');
         }
@@ -402,11 +405,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     selectedIds.add(item.id);
                 });
                 
-                // Sync checkbox state in current view
-                document.querySelectorAll('.card-checkbox').forEach(cb => {
-                    const id = cb.dataset.id;
-                    if (selectedIds.has(id)) {
-                        cb.checked = true;
+                // Sync visible cards UI
+                const cards = sourcesGrid.querySelectorAll('.source-card');
+                pageItems.forEach((item, index) => {
+                    if (cards[index]) {
+                        cards[index].classList.add('selected');
                     }
                 });
                 
@@ -418,7 +421,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (deselectAllBtn) {
             deselectAllBtn.addEventListener('click', () => {
                 selectedIds.clear();
-                document.querySelectorAll('.card-checkbox').forEach(cb => cb.checked = false);
+                sourcesGrid.querySelectorAll('.source-card').forEach(card => card.classList.remove('selected'));
                 updateSelectionBar();
             });
         }
@@ -427,7 +430,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (selectionClearBtn) {
             selectionClearBtn.addEventListener('click', () => {
                 selectedIds.clear();
-                document.querySelectorAll('.card-checkbox').forEach(cb => cb.checked = false);
+                sourcesGrid.querySelectorAll('.source-card').forEach(card => card.classList.remove('selected'));
                 updateSelectionBar();
             });
         }
