@@ -17,8 +17,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const toastText = document.getElementById('toast-text');
 
     let allSources = [];
+    let filteredSources = [];
     let currentTag = 'all';
     let searchQuery = '';
+
+    // Pagination / Lazy Loading
+    let currentPage = 1;
+    const limitPerPage = 40; // Render 40 cards initially for instant loads
 
     // Translation helper dicts
     const tagTranslations = {
@@ -74,8 +79,8 @@ document.addEventListener('DOMContentLoaded', () => {
             // Generate tags
             generateTagFilters();
             
-            // Initial render
-            renderSources();
+            // Initial filter & render
+            updateFilteredSources();
             
             // Register input events
             registerEvents();
@@ -125,9 +130,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    function renderSources() {
-        // Filter sources
-        const filtered = allSources.filter(item => {
+    function updateFilteredSources() {
+        filteredSources = allSources.filter(item => {
             // Tag check
             let matchesTag = true;
             if (currentTag !== 'all') {
@@ -146,7 +150,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const translatedTags = translateTags(item.tags).toLowerCase();
                 const tagMatch = translatedTags.includes(q) || (item.tags && item.tags.toLowerCase().includes(q));
                 
-                // Search in update time (both Chinese and translated Vietnamese!)
+                // Search in update time
                 const vietTime = translateTime(item.time).toLowerCase();
                 const rawTime = item.time ? item.time.toLowerCase() : '';
                 const timeMatch = vietTime.includes(q) || rawTime.includes(q);
@@ -157,17 +161,27 @@ document.addEventListener('DOMContentLoaded', () => {
             return matchesTag && matchesSearch;
         });
 
-        // Clear grid
-        sourcesGrid.innerHTML = '';
+        renderSources(false);
+    }
 
-        if (filtered.length === 0) {
+    function renderSources(append = false) {
+        if (!append) {
+            sourcesGrid.innerHTML = '';
+            currentPage = 1;
+        }
+
+        const start = (currentPage - 1) * limitPerPage;
+        const end = start + limitPerPage;
+        const pageItems = filteredSources.slice(start, end);
+
+        if (filteredSources.length === 0) {
             noResults.style.display = 'block';
             sourcesGrid.style.display = 'none';
         } else {
             noResults.style.display = 'none';
             sourcesGrid.style.display = 'grid';
 
-            filtered.forEach(item => {
+            pageItems.forEach(item => {
                 const card = createCard(item);
                 sourcesGrid.appendChild(card);
             });
@@ -181,7 +195,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Extract badges (only valid translated tags)
         const tagsList = item.tags ? item.tags.split(/\s+/) : [];
         const badgeHTML = tagsList
-            .filter(t => tagTranslations[t.trim()]) // Filter out weird Chinese/custom tags
+            .filter(t => tagTranslations[t.trim()])
             .map((tag, i) => {
                 const vietTag = translateTag(tag);
                 const badgeClass = vietTag === 'Tìm kiếm' ? 'blue' : (vietTag === 'Khám phá' ? 'purple' : (vietTag === 'Manga' ? 'gold' : 'green'));
@@ -231,14 +245,6 @@ document.addEventListener('DOMContentLoaded', () => {
         return div;
     }
 
-    function getDomain(url) {
-        try {
-            return new URL(url).hostname;
-        } catch (e) {
-            return url;
-        }
-    }
-
     function escapeHTML(str) {
         if (!str) return '';
         return str.replace(/[&<>'"]/g, 
@@ -256,7 +262,6 @@ document.addEventListener('DOMContentLoaded', () => {
         navigator.clipboard.writeText(text).then(() => {
             showToast("Đã sao chép liên kết nguồn truyện!");
         }).catch(err => {
-            // Fallback
             const textArea = document.createElement("textarea");
             textArea.value = text;
             document.body.appendChild(textArea);
@@ -288,7 +293,7 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 clearSearch.style.display = 'none';
             }
-            renderSources();
+            updateFilteredSources();
         });
 
         // Clear Search
@@ -296,7 +301,7 @@ document.addEventListener('DOMContentLoaded', () => {
             searchInput.value = '';
             searchQuery = '';
             clearSearch.style.display = 'none';
-            renderSources();
+            updateFilteredSources();
         });
 
         // Tags Selection Click
@@ -311,7 +316,18 @@ document.addEventListener('DOMContentLoaded', () => {
             btn.classList.add('active');
             currentTag = btn.dataset.tag;
             
-            renderSources();
+            updateFilteredSources();
+        });
+
+        // Infinite Scroll
+        window.addEventListener('scroll', () => {
+            // Trigger load more when user is 400px from the bottom
+            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 400) {
+                if (currentPage * limitPerPage < filteredSources.length) {
+                    currentPage++;
+                    renderSources(true);
+                }
+            }
         });
     }
 });
