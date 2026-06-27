@@ -3,109 +3,152 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kho Nguồn Truyện Tiện Ích - Novela</title>
-    <!-- Google Fonts -->
+    <title>Kho Nguồn Sách & Tiện Ích - Novela Premium</title>
+    <!-- Google Fonts: Outfit & Space Grotesk -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- FontAwesome for Premium Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="glass-bg"></div>
-    <div class="glow-dots">
-        <div class="dot dot-1"></div>
-        <div class="dot dot-2"></div>
+    <!-- Animated Glowing Orbs Background -->
+    <div class="blob-container">
+        <div class="blob blob-purple"></div>
+        <div class="blob blob-blue"></div>
+        <div class="blob blob-gold"></div>
     </div>
+    <div class="glass-overlay"></div>
 
     <div class="container">
         <!-- Header -->
         <header>
-            <div class="logo">
-                <i class="fa-solid fa-book-open-reader logo-icon"></i>
-                <span class="logo-text">NOVELA</span>
-                <span class="badge">VIETNAM</span>
+            <div class="logo-wrapper">
+                <div class="logo-glow"></div>
+                <div class="logo">
+                    <i class="fa-solid fa-book-open-reader logo-icon"></i>
+                    <span class="logo-text">NOVELA</span>
+                    <span class="badge">PRO</span>
+                </div>
             </div>
-            <h1>Kho Nguồn Sách & Tiện Ích</h1>
-            <p class="subtitle">Đồng bộ trực tiếp danh sách nguồn truyện Legado chất lượng cao cho ứng dụng Novela của bạn</p>
             
-            <!-- Quick Stats -->
-            <div class="stats-bar">
-                <div class="stat-item">
-                    <span class="stat-value" id="total-sources-val">0</span>
-                    <span class="stat-label">Tổng nguồn sách</span>
+            <h1>Kho Nguồn Truyện Việt Hóa</h1>
+            <p class="subtitle">Thư viện nguồn sách Legado và Extension Việt hóa tối ưu cho độc giả Việt Nam. Đồng bộ một chạm thẳng vào ứng dụng của bạn.</p>
+            
+            <!-- Stats Dashboard Grid -->
+            <div class="stats-grid-container">
+                <div class="stat-card">
+                    <div class="stat-icon-box purple">
+                        <i class="fa-solid fa-database"></i>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-value" id="total-sources-val">0</span>
+                        <span class="stat-label">Nguồn Sách</span>
+                    </div>
                 </div>
-                <div class="stat-item">
-                    <span class="stat-value" id="total-downloads-val">0</span>
-                    <span class="stat-label">Lượt tải về</span>
+                <div class="stat-card">
+                    <div class="stat-icon-box blue">
+                        <i class="fa-solid fa-fire"></i>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-value" id="total-downloads-val">0</span>
+                        <span class="stat-label">Lượt Sử Dụng</span>
+                    </div>
                 </div>
-                <div class="stat-item">
-                    <span class="stat-value"><i class="fa-solid fa-cloud-arrow-down sync-icon"></i></span>
-                    <span class="stat-label">Tự động cập nhật</span>
+                <div class="stat-card">
+                    <div class="stat-icon-box gold">
+                        <i class="fa-solid fa-rotate"></i>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-value" style="background: linear-gradient(90deg, #f59e0b, #d97706); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">LIVE</span>
+                        <span class="stat-label">Cập Nhật Tự Động</span>
+                    </div>
                 </div>
             </div>
         </header>
 
-        <!-- Controls Section -->
-        <section class="controls">
-            <!-- Search bar -->
-            <div class="search-box">
-                <i class="fa-solid fa-magnifying-glass search-icon"></i>
-                <input type="text" id="search-input" placeholder="Tìm kiếm nguồn theo tên, tác giả hoặc địa chỉ URL...">
-                <button id="clear-search" class="clear-btn" style="display: none;">
-                    <i class="fa-solid fa-xmark"></i>
+        <!-- Dynamic Controls -->
+        <section class="controls-section">
+            <div class="search-bar-wrapper">
+                <i class="fa-solid fa-magnifying-glass search-main-icon"></i>
+                <input type="text" id="search-input" placeholder="Tìm tên nguồn, tác giả, đường dẫn URL hoặc nhãn phân loại...">
+                <button id="clear-search" class="clear-search-btn" style="display: none;">
+                    <i class="fa-solid fa-circle-xmark"></i>
                 </button>
             </div>
 
-            <!-- Filter Tags -->
-            <div class="filter-group">
-                <span class="filter-title"><i class="fa-solid fa-tags"></i> Phân loại:</span>
-                <div class="tags-container" id="tags-filter">
-                    <button class="tag-btn active" data-tag="all">Tất cả</button>
-                    <!-- Tags will be dynamically generated -->
+            <!-- Categories -->
+            <div class="filter-wrapper">
+                <span class="filter-header-label"><i class="fa-solid fa-sliders"></i> Phân loại nhanh:</span>
+                <div class="tags-flex" id="tags-filter">
+                    <button class="tag-btn active" data-tag="all">
+                        <i class="fa-solid fa-layer-group"></i> Tất cả
+                    </button>
                 </div>
             </div>
         </section>
 
-        <!-- Sources Grid -->
-        <main class="grid-section">
-            <div class="loader-container" id="loader">
-                <div class="spinner"></div>
-                <p>Đang đồng bộ danh sách nguồn từ máy chủ...</p>
-            </div>
-            
-            <div class="error-container" id="error-box" style="display: none;">
-                <i class="fa-solid fa-triangle-exclamation error-icon"></i>
-                <h3>Đồng bộ thất bại</h3>
-                <p id="error-message">Không thể kết nối đến kho dữ liệu nguồn truyện.</p>
-                <button onclick="window.location.reload()" class="retry-btn">Thử lại</button>
+        <!-- Sources Section -->
+        <main class="content-main">
+            <!-- Loader -->
+            <div class="loader-wrapper" id="loader">
+                <div class="loading-ring">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+                <p class="loading-text">Đang đồng bộ dữ liệu nguồn từ kho lưu trữ...</p>
             </div>
 
-            <div class="sources-grid" id="sources-grid">
-                <!-- Cards will be dynamically generated -->
+            <!-- Error -->
+            <div class="error-wrapper" id="error-box" style="display: none;">
+                <div class="error-glow"></div>
+                <i class="fa-solid fa-triangle-exclamation error-icon"></i>
+                <h3>Đồng Bộ Thất Bại</h3>
+                <p id="error-message">Đã xảy ra sự cố khi tải danh sách nguồn sách.</p>
+                <button onclick="window.location.reload()" class="retry-btn">
+                    <i class="fa-solid fa-arrows-rotate"></i> Tải Lại Trang
+                </button>
             </div>
-            
-            <div class="no-results" id="no-results" style="display: none;">
-                <i class="fa-solid fa-inbox empty-icon"></i>
-                <p>Không tìm thấy nguồn nào phù hợp với tìm kiếm của bạn.</p>
+
+            <!-- Grid -->
+            <div class="sources-card-grid" id="sources-grid">
+                <!-- Cards injected dynamically -->
+            </div>
+
+            <!-- Empty -->
+            <div class="empty-wrapper" id="no-results" style="display: none;">
+                <i class="fa-solid fa-ghost empty-ghost-icon"></i>
+                <p class="empty-title">Không Tìm Thấy Kết Quả</p>
+                <p class="empty-subtitle">Vui lòng thử tìm kiếm với từ khóa hoặc nhãn khác.</p>
             </div>
         </main>
 
         <!-- Footer -->
         <footer>
-            <p>&copy; 2026 Novela Vietnam. Tất cả dữ liệu nguồn được cập nhật từ yckceo.</p>
-            <div class="footer-links">
-                <a href="https://github.com/hongtrantiende/Novela-Releases" target="_blank"><i class="fa-brands fa-github"></i> Novela Releases</a>
-                <a href="https://www.yckceo.com/yuedu/shuyuan/index.html" target="_blank"><i class="fa-solid fa-globe"></i> Nguồn tham khảo</a>
+            <div class="footer-content">
+                <p>&copy; 2026 Novela Vietnam. Giao diện được tối ưu hóa cho trải nghiệm di động.</p>
+                <div class="links-row">
+                    <a href="https://github.com/hongtrantiende/Novela-Releases" target="_blank" class="footer-link">
+                        <i class="fa-brands fa-github"></i> Novela Releases
+                    </a>
+                    <a href="https://www.yckceo.com/yuedu/shuyuan/index.html" target="_blank" class="footer-link">
+                        <i class="fa-solid fa-globe"></i> Yckceo Origin
+                    </a>
+                </div>
             </div>
         </footer>
     </div>
 
-    <!-- Floating toast for copy notifications -->
-    <div id="toast" class="toast">
-        <i class="fa-solid fa-circle-check toast-icon"></i>
-        <span id="toast-text">Đã sao chép liên kết nguồn!</span>
+    <!-- Toast Notification -->
+    <div id="toast" class="toast-notification">
+        <div class="toast-blur"></div>
+        <div class="toast-content">
+            <i class="fa-solid fa-circle-check toast-icon"></i>
+            <span id="toast-text">Sao chép liên kết thành công!</span>
+        </div>
     </div>
 
     <script src="app.js"></script>

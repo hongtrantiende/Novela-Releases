@@ -96,7 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
         tags.forEach(tag => {
             const btn = document.createElement('button');
             btn.className = 'tag-btn';
-            btn.textContent = tag;
+            btn.innerHTML = `<i class="fa-solid fa-tag"></i> ${escapeHTML(tag)}`;
             btn.dataset.tag = tag;
             tagsFilter.appendChild(btn);
         });
