@@ -55,9 +55,9 @@ Novela hoạt động như một **Trình duyệt nội dung số chuyên dụng
 
 ## 📥 Hướng Dẫn Cài Đặt
 
-1. Vào tab [Releases](https://github.com/hongtrantiende/Novela-Releases/releases) của kho lưu trữ này.
-2. Tải về file APK phù hợp với thiết bị của bạn:
-   * **`Novela-arm64-v8a-debug.apk`**: Dành cho các thiết bị Android 64-bit hiện đại (hầu hết điện thoại hiện nay).
-   * **`Novela-universal-debug.apk`**: Bản vạn năng chạy được trên mọi kiến trúc chip.
-3. Tiến hành cài đặt file APK trên điện thoại của bạn. 
+1. Tải về file APK phù hợp với thiết bị của bạn từ thư mục gốc của kho lưu trữ này:
+   * **[Novela-arm64-v8a-1.50.12.apk](Novela-arm64-v8a-1.50.12.apk)**: Dành cho các thiết bị Android 64-bit hiện đại (hầu hết điện thoại hiện nay).
+   * **[Novela-universal-1.50.12.apk](Novela-universal-1.50.12.apk)**: Bản vạn năng chạy được trên mọi kiến trúc chip.
+2. Tiến hành cài đặt file APK trên điện thoại của bạn. 
    *(Lưu ý: Bạn cần cấp quyền "Cài đặt ứng dụng từ nguồn không xác định" nếu được hệ thống Android yêu cầu).*
+
