@@ -1,4 +1,4 @@
-# 📖 Novela - Trình Đọc Sách & Nội Dung Số Đa Nguồn
+ssssssssssssssssssss# 📖 Novela - Trình Đọc Sách & Nội Dung Số Đa Nguồn
 
 Novela là một ứng dụng đọc sách và quản lý nội dung số hiệu năng cao dành cho hệ điều hành Android. Ứng dụng được xây dựng và tối ưu hóa dựa trên lõi đọc mã nguồn mở mạnh mẽ **Legado**, tích hợp phong cách thiết kế giao diện hiện đại Material Design 3, mang lại trải nghiệm đọc sách mượt mà, trực quan và tối ưu nhất cho người dùng.
 
@@ -55,9 +55,9 @@ Novela hoạt động như một **Trình duyệt nội dung số chuyên dụng
 
 ## 📥 Hướng Dẫn Cài Đặt
 
-1. Tải về file APK phù hợp với thiết bị của bạn từ thư mục gốc của kho lưu trữ này:
-   * **[Novela-arm64-v8a-1.50.23.apk](Novela-arm64-v8a-1.50.23.apk)**: Dành cho các thiết bị Android 64-bit hiện đại (hầu hết điện thoại hiện nay).
-   * **[Novela-universal-1.50.23.apk](Novela-universal-1.50.23.apk)**: Bản vạn năng chạy được trên mọi kiến trúc chip.
+1. Tải về file APK phù hợp với thiết bị của bạn từ thư mục gốc của kho lưu trữ này hoặc trang Releases:
+   * **[Novela-arm64-v8a-release-v1.50.31.apk](Novela-arm64-v8a-release-v1.50.31.apk)**: Dành cho các thiết bị Android 64-bit hiện đại (hầu hết điện thoại hiện nay).
+   * **[Novela-universal-release-v1.50.31.apk](Novela-universal-release-v1.50.31.apk)**: Bản vạn năng chạy được trên mọi kiến trúc chip.
 2. Tiến hành cài đặt file APK trên điện thoại của bạn. 
    *(Lưu ý: Bạn cần cấp quyền "Cài đặt ứng dụng từ nguồn không xác định" nếu được hệ thống Android yêu cầu).*
 
