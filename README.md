@@ -1,63 +1,71 @@
-# 📖 Novela - Trình Đọc Sách & Nội Dung Số Đa Nguồn
+# Novela Releases
 
-Novela là một ứng dụng đọc sách và quản lý nội dung số hiệu năng cao dành cho hệ điều hành Android. Ứng dụng được xây dựng và tối ưu hóa dựa trên lõi đọc mã nguồn mở mạnh mẽ **Legado**, tích hợp phong cách thiết kế giao diện hiện đại Material Design 3, mang lại trải nghiệm đọc sách mượt mà, trực quan và tối ưu nhất cho người dùng.
-
----
-
-## ⚡ Tính Năng Nổi Bật
-
-### 🌐 1. Hệ Thống Nguồn Sách Tự Cấu Hình (Custom Book Sources)
-* **Khả năng tương thích cực cao**: Hỗ trợ đầy đủ các quy tắc phân tích cú pháp nguồn sách của Legado và các tiện ích mở rộng VBook.
-* **Nhập nguồn thông minh**: Nhập nguồn sách nhanh chóng qua mã QR, đường dẫn URL (nhập trực tuyến), hoặc nhập file JSON từ thiết bị.
-* **Tự do tùy biến**: Cho phép người dùng tự chỉnh sửa, gộp nguồn tìm kiếm và kiểm tra trạng thái hoạt động của nguồn sách ngay trong ứng dụng.
-
-### 📚 2. Trình Đọc Cao Cấp & Cá Nhân Hóa (Advanced Reader Engine)
-* **Bố cục & Định dạng chuyên nghiệp**: Tùy chỉnh linh hoạt phông chữ (hỗ trợ thêm phông chữ ngoài), kích thước chữ, giãn dòng, lề trang, thụt dòng đầu dòng.
-* **Hiệu ứng lật trang đa dạng**: Hỗ trợ hiệu ứng cuộn, trượt, mô phỏng lật trang giấy hoặc tắt hiệu ứng lật trang để tối ưu hiệu năng.
-* **Chế độ màn hình chuyên dụng**:
-  * **Chế độ Tối (Dark Mode)**: Tự động chuyển đổi theo giao diện hệ thống giúp bảo vệ mắt vào ban đêm.
-  * **Chế độ E-Ink**: Tối ưu hóa giao diện phẳng, loại bỏ hiệu ứng chuyển động để tiết kiệm pin và mang lại trải nghiệm tốt nhất trên các thiết bị màn hình giấy điện tử.
-
-### 🔊 3. Đọc Thành Tiếng (TTS - Text-To-Speech)
-* Hỗ trợ đọc văn bản thành tiếng qua các công cụ TTS trên máy hoặc dịch vụ đọc trực tuyến.
-* Tính năng hẹn giờ tắt, tăng/giảm tốc độ đọc linh hoạt.
-* Tự động tạm dừng phát âm thanh khi có cuộc gọi đến và tiếp tục sau khi cuộc gọi kết thúc.
-
-### 💾 4. Sao Lưu & Lưu Trữ Cục Bộ (Local Backup & Storage)
-* Hỗ trợ sao lưu toàn bộ dữ liệu tủ sách, dấu trang, lịch sử đọc và cấu hình nguồn sách thủ công hoặc tự động ra bộ nhớ cục bộ của thiết bị.
-* Dễ dàng xuất và nhập các tệp cấu hình sao lưu dự phòng để khôi phục dữ liệu nhanh chóng bất cứ lúc nào.
-
-### 🚀 5. Tự Động Cập Nhật Tiện Lợi (In-App Auto Update)
-* Ứng dụng tích hợp trình kiểm tra cập nhật tự động mỗi khi khởi động.
-* Phát hiện phiên bản mới nhất từ kho lưu trữ này và hỗ trợ tải xuống, cài đặt cập nhật trực tiếp bên trong ứng dụng mà không cần cài đặt lại thủ công.
+Kho lưu trữ phát hành chính thức cho ứng dụng Novela trên nền tảng Android.
 
 ---
 
-## 🛠️ Cơ Chế Hoạt Động
+## Liên kết chính thức
 
-Novela hoạt động như một **Trình duyệt nội dung số chuyên dụng** (tương tự trình duyệt web Chrome hoặc Firefox):
-1. Ứng dụng ở trạng thái mặc định **hoàn toàn trống**, không tích hợp sẵn bất kỳ tác phẩm, tài liệu hay kho truyện nào.
-2. Người dùng chủ động cung cấp nội dung đọc bằng cách nhập các quy tắc phân tích cú pháp (Nguồn sách) hoặc mở các tệp tài liệu cục bộ (EPUB, TXT, PDF, MOBI, v.v.).
-3. Ứng dụng sẽ tải nội dung từ các trang web do người dùng chỉ định, tiến hành lọc quảng cáo, chuẩn hóa định dạng văn bản và trình bày lên màn hình đọc sách một cách đẹp mắt nhất.
-
----
-
-## ⚖️ Tuyên Bố Pháp Lý & Bản Quyền (Disclaimer)
-
-* **Không có máy chủ trung tâm**: Novela là ứng dụng hoạt động hoàn toàn ở môi trường cục bộ trên thiết bị của người dùng. Chúng tôi không vận hành bất kỳ máy chủ chứa nội dung truyện nào.
-* **Không thu thập dữ liệu cá nhân**: Ứng dụng không thu thập, lưu trữ hay chia sẻ thông tin cá nhân, lịch sử đọc sách hoặc danh sách nguồn sách của bạn. Chúng tôi chỉ tích hợp Google Firebase ẩn danh để ghi nhận các báo cáo lỗi hệ thống nhằm mục đích cải thiện hiệu năng ứng dụng.
-* **Miễn trừ trách nhiệm về bản quyền**:
-  * Mọi tài nguyên truyện, bài viết và thông tin hiển thị trong ứng dụng đều được truy xuất trực tiếp từ các liên kết web do người dùng tự nhập.
-  * Nhà phát triển ứng dụng **không chịu bất kỳ trách nhiệm pháp lý nào** đối với tính hợp pháp, bản quyền hoặc độ chính xác của nội dung được tải thông qua các nguồn sách do người dùng tự thêm.
-  * Mọi khiếu nại về bản quyền tác phẩm vui lòng liên hệ trực tiếp với chủ sở hữu trang web nguồn hoặc cá nhân thiết lập/cung cấp tệp nguồn sách đó.
+- Trang chủ: [hongtrantiende.github.io/novela-app](https://hongtrantiende.github.io/novela-app/)
+- Tải xuống APK: [hongtrantiende.github.io/novela-app/download.html](https://hongtrantiende.github.io/novela-app/download.html)
+- Danh sách phát hành GitHub: [github.com/hongtrantiende/Novela-Releases/releases](https://github.com/hongtrantiende/Novela-Releases/releases)
 
 ---
 
-## 📥 Hướng Dẫn Cài Đặt
+## Giới thiệu
 
-1. Tải về file APK phù hợp với thiết bị của bạn từ thư mục gốc của kho lưu trữ này hoặc trang Releases:
-   * **[Novela-arm64-v8a-release-v1.50.33.apk](Novela-arm64-v8a-release-v1.50.33.apk)**: Dành cho các thiết bị Android 64-bit hiện đại (hầu hết điện thoại hiện nay).
-   * **[Novela-universal-release-v1.50.33.apk](Novela-universal-release-v1.50.33.apk)**: Bản vạn năng chạy được trên mọi kiến trúc chip.
-2. Tiến hành cài đặt file APK trên điện thoại của bạn. 
-   *(Lưu ý: Bạn cần cấp quyền "Cài đặt ứng dụng từ nguồn không xác định" nếu được hệ thống Android yêu cầu).*
+Novela là trình đọc sách mã nguồn mở hiệu năng cao dành cho hệ điều hành Android, được phát triển trên ngôn ngữ thiết kế Material 3 Expressive hiện đại. Ứng dụng cung cấp giải pháp đọc sách toàn diện, hỗ trợ các định dạng tệp cục bộ (TXT, EPUB, MOBI) cùng hệ thống nguồn sách tùy biến linh hoạt, đọc thành tiếng (TTS), đồng bộ WebDAV và cơ chế cập nhật tự động bên trong ứng dụng.
 
+---
+
+## Lựa chọn phiên bản APK
+
+Các bản phát hành chính thức được biên dịch, tối ưu hóa kích thước qua R8/ProGuard và ký số bảo mật. Vui lòng chọn gói cài đặt phù hợp với kiến trúc vi xử lý của thiết bị:
+
+| Kiến trúc | Tên tệp mẫu | Thiết bị áp dụng | Ghi chú |
+| :--- | :--- | :--- | :--- |
+| **ARM64** | `Novela-<version>-arm64-v8a.apk` | Android 64-bit | Khuyên dùng cho hầu hết các điện thoại và máy tính bảng hiện nay. Tối ưu kích thước tệp và hiệu năng khởi chạy. |
+| **ARMv7a** | `Novela-<version>-armeabi-v7a.apk` | Android 32-bit | Dành riêng cho các thiết bị đời cũ hoặc hệ máy chạy hệ điều hành 32-bit. |
+| **Universal** | `Novela-<version>-universal.apk` | Toàn bộ kiến trúc | Tương thích với tất cả kiến trúc chip (bao gồm x86_64). Dung lượng tệp lớn hơn do tích hợp đa thư viện native. |
+
+Để tải bản phát hành mới nhất, truy cập [Releases mới nhất](https://github.com/hongtrantiende/Novela-Releases/releases/latest).
+
+---
+
+## Hướng dẫn cài đặt
+
+1. Truy cập mục [Releases](https://github.com/hongtrantiende/Novela-Releases/releases/latest) và tải tệp APK tương ứng với thiết bị.
+2. Mở tệp vừa tải về. Nếu hệ điều hành Android xuất hiện hộp thoại cảnh báo bảo mật, chọn "Cài đặt" và cho phép "Cài đặt ứng dụng không rõ nguồn gốc" đối với trình duyệt hoặc trình quản lý tệp đang dùng.
+3. Hoàn tất cài đặt và khởi chạy Novela. Các bản cập nhật trong tương lai có thể được kiểm tra và cài đặt trực tiếp ngay trong ứng dụng (Cài đặt -> Giới thiệu -> Kiểm tra cập nhật).
+
+---
+
+## Đặc tính cốt lõi
+
+### Giao diện Material 3 Expressive
+- Bảng màu thích ứng Dynamic Color theo màu nền hệ thống Android hoặc tùy chỉnh Seed Color.
+- Tối ưu hóa cho các điều kiện đọc: Chế độ sáng (Light), chế độ tối tuyệt đối (OLED Dark Mode) và chế độ E-Ink dành riêng cho màn hình mực điện tử.
+- Bố cục Edge-to-Edge liền mạch, thanh điều hướng mờ và hoạt ảnh chuyển trang tự nhiên.
+
+### Động cơ nguồn sách & Đa định dạng
+- Mở và quản lý trực tiếp các định dạng sách ngoại tuyến: TXT, EPUB, MOBI.
+- Tương thích với các bộ quy tắc nguồn sách dạng JSON từ Legado và VBook Extensions.
+- Phân tích cú pháp linh hoạt với Rhino JavaScript Engine, XPath, Jsoup và biểu thức chính quy (Regex).
+
+### Trải nghiệm đọc & Đọc thành tiếng (TTS)
+- Tùy chỉnh chi tiết kiểu chữ, kích thước, khoảng cách dòng, độ thụt dòng và căn lề.
+- Đa dạng hiệu ứng chuyển trang: Mô phỏng trang sách thực, cuộn dọc liên tục, trượt ngang.
+- Tích hợp công cụ Text-To-Speech (TTS) của hệ thống hoặc dịch vụ trực tuyến với hẹn giờ và tự động dừng khi có cuộc gọi.
+
+### Đồng bộ & Ngoại tuyến
+- Quản lý tủ sách ngoại tuyến với cơ chế tải dữ liệu nền.
+- Sao lưu và phục hồi dữ liệu hoàn chỉnh qua dịch vụ đám mây WebDAV hoặc xuất tệp dự phòng cục bộ.
+- Tự động kiểm tra phiên bản mới và cập nhật trực tiếp với thanh tiến độ thời gian thực.
+
+---
+
+## Quyền riêng tư & Tuyên bố pháp lý
+
+- **Không máy chủ lưu trữ nội dung**: Novela hoạt động như một trình duyệt và trình phân tích nội dung số cục bộ trên thiết bị của người dùng. Nhà phát triển không lưu trữ, quản lý hay phân phối bất kỳ nội dung sách hoặc tài liệu có bản quyền nào.
+- **Quyền riêng tư tuyệt đối**: Ứng dụng không yêu cầu đăng ký tài khoản, không thu thập lịch sử đọc, dấu trang hay danh sách nguồn sách của người dùng.
+- **Mã nguồn mở**: Dự án được xây dựng trên nền tảng mã nguồn mở, tuân thủ các quy định cấp phép của Legado with Material Design 3.
